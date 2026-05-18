@@ -56,7 +56,7 @@ Both theories failed the empirical test: even with `--add-dir "/home/me/project-
 
    The debug log emits `Permission suggestions for <tool>: [...]` immediately followed by `<tool> tool permission denied` (in `--print` mode the harness auto-rejects rather than prompt). The contents of the suggestions array tells you which rules the matcher *could* see as relevant. Generic `setMode:acceptEdits` as the only suggestion means it found no rule-based path to allow.
 
-This combination — disassembly to read the code, `--debug` runs to verify behavior, `app-src/probe.js` (in this repo) to confirm the matcher's downstream library (`picomatch`) is working correctly — is enough to ground-truth what the matcher actually does.
+This combination — disassembly to read the code, `--debug` runs to verify behavior, `app-src/js-probes/probe.js` (in this repo) to confirm the matcher's downstream library (`picomatch`) is working correctly — is enough to ground-truth what the matcher actually does.
 
 ---
 
@@ -284,7 +284,7 @@ Two fixes, both small and isolated, can ship independently:
 
 ### Workaround in this repo
 
-Bare `Read` / `Edit` / `Write` in `permissions.allow` (the only form the matcher honors), plus the `PreToolUse` hook (`app-src/file-deny-guard.py`) to re-implement path-based denies. The hook lives below the broken `XIq` filter in the decision flow, so it actually fires. See the README for install instructions.
+Bare `Read` / `Edit` / `Write` in `permissions.allow` (the only form the matcher honors), plus the `PreToolUse` hook (`app-src/py-helpers/file-deny-guard.py`) to re-implement path-based denies. The hook lives below the broken `XIq` filter in the decision flow, so it actually fires. See the README for install instructions.
 
 ---
 

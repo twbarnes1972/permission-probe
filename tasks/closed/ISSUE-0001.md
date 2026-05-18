@@ -99,8 +99,8 @@ Full narrative including the methodology, code excerpts, and decision-flow walkt
 - [`docs/upstream-comments/upstream-comment-36884.md`](../../docs/upstream-comments/upstream-comment-36884.md) — primary root-cause comment draft.
 - [`docs/upstream-comments/upstream-comment-57132.md`](../../docs/upstream-comments/upstream-comment-57132.md) — Linux cross-link.
 - [`docs/upstream-comments/upstream-comment-15921.md`](../../docs/upstream-comments/upstream-comment-15921.md) — multi-bug thread; both findings.
-- [`app-src/file-deny-guard.py`](../../app-src/file-deny-guard.py) — workaround hook.
-- [`app-src/probe.js`](../../app-src/probe.js) — picomatch verification probe.
+- [`app-src/py-helpers/file-deny-guard.py`](../../app-src/py-helpers/file-deny-guard.py) — workaround hook.
+- [`app-src/js-probes/probe.js`](../../app-src/js-probes/probe.js) — picomatch verification probe.
 - Commit `5867746` — initial commit (hook + probe).
 - Commit `d4b4270` — INVESTIGATION.md added.
 - Commit `1839836` — pre-publication scrub.

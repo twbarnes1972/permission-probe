@@ -4,13 +4,13 @@ You're reading this because a Claude Code (or similar) session has cwd set to th
 
 ## What this repo is in one paragraph
 
-`permission-probe` is a **workaround tool** for a Claude Code bug: path-globbed `Edit(...)`, `Read(...)`, `Write(...)` rules in `~/.claude/settings.json` are silently ignored by the permission matcher. Only bare `Edit` / `Read` / `Write` rules work. Two artifacts, both under [`app-src/`](app-src/): `file-deny-guard.py` (a `PreToolUse` hook that re-implements path-based denies) and `probe.js` (a diagnostic that proves the bug is not in picomatch). Full root-cause analysis is in the README and the upstream comment drafts under `docs/upstream-comments/`. This tool becomes obsolete when upstream lands a matcher fix.
+`permission-probe` is a **workaround tool** for a Claude Code bug: path-globbed `Edit(...)`, `Read(...)`, `Write(...)` rules in `~/.claude/settings.json` are silently ignored by the permission matcher. Only bare `Edit` / `Read` / `Write` rules work. Two artifacts, split by language under [`app-src/`](app-src/): `py-helpers/file-deny-guard.py` (a `PreToolUse` hook that re-implements path-based denies) and `js-probes/probe.js` (a diagnostic that proves the bug is not in picomatch). Full root-cause analysis is in the README and the upstream comment drafts under `docs/upstream-comments/`. This tool becomes obsolete when upstream lands a matcher fix.
 
 ## Maintenance guidance — when working on this repo
 
 ### The hook contract — don't break it
 
-`app-src/file-deny-guard.py` is a Claude Code `PreToolUse` hook. Contract:
+`app-src/py-helpers/file-deny-guard.py` is a Claude Code `PreToolUse` hook. Contract:
 
 - Reads a single JSON object from stdin (the tool call payload, e.g. `{"tool_name":"Edit","tool_input":{"file_path":"...","old_string":"..."}}`).
 - Returns one of:
@@ -35,7 +35,7 @@ Adding/removing the hook itself in `settings.json` DOES require a Claude restart
 Pipe a JSON payload directly to the script:
 
 ```bash
-python -c "import json,sys; sys.stdout.write(json.dumps({'tool_name':'Edit','tool_input':{'file_path':'/etc/passwd'}}))" | python app-src/file-deny-guard.py
+python -c "import json,sys; sys.stdout.write(json.dumps({'tool_name':'Edit','tool_input':{'file_path':'/etc/passwd'}}))" | python app-src/py-helpers/file-deny-guard.py
 ```
 
 With a matching pattern uncommented in `DENY_PATTERNS`, expected stdout is a JSON object with `"permissionDecision":"deny"` and a populated `permissionDecisionReason`. With no matching pattern (default empty list), stdout is empty.
@@ -46,7 +46,7 @@ Note for Windows: shell-echo of `\\` mangles into `\` and breaks JSON. Use Pytho
 
 When `anthropics/claude-code` ships a release that respects path-globbed Edit/Read/Write rules:
 
-1. Verify with `app-src/probe.js` against the new claude.exe (the disassembly methodology in `docs/upstream-comments/upstream-comment-36884.md` still applies).
+1. Verify with `app-src/js-probes/probe.js` against the new claude.exe (the disassembly methodology in `docs/upstream-comments/upstream-comment-36884.md` still applies).
 2. Add a deprecation note at the top of the README pointing to the fixed version.
 3. Leave the repo up for people on older versions, but consider archiving on GitHub.
 
@@ -73,7 +73,7 @@ Tracking upstream: anthropics/claude-code#36884, #57132, #15921.
 2. The actual workaround is bare `Read` / `Edit` / `Write` in `permissions.allow`,
    plus a `PreToolUse` hook for any path-specific denies the user needs.
 3. The reference implementation of the hook is at
-   https://github.com/twbarnes1972/permission-probe — `app-src/file-deny-guard.py` + README.
+   https://github.com/twbarnes1972/permission-probe — `app-src/py-helpers/file-deny-guard.py` + README.
 4. Before making any settings.json change on the user's behalf, confirm with them.
    This is a security boundary; broadening permissions without consent is bad.
 ```
