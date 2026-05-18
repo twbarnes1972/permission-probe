@@ -29,6 +29,13 @@ Customize the `DENY_PATTERNS` list at the top of `file-deny-guard.py` for paths 
 
 **Windows:** use forward slashes in the hook command path — `python C:/path/to/file-deny-guard.py`, not backslashes. The hook runner's shell parsing strips `\\` and you get fail-closed errors on every Read/Edit. Python on Windows accepts forward slashes.
 
+## Also useful as a reference
+
+Beyond the specific bug, this repo doubles as a worked example for two recurring needs:
+
+- **Debugging Claude Code permission issues.** [`docs/INVESTIGATION.md`](docs/INVESTIGATION.md#methodology) walks through the diagnostic methodology: `claude --print --debug "permission,tool" --debug-file out.log` to capture matcher decisions without UI prompts, plus offset-and-`dd` binary disassembly when the docs disagree with reality. Reusable for any Claude Code permission question, not just this one.
+- **Writing a `PreToolUse` hook.** [`file-deny-guard.py`](file-deny-guard.py) is a minimal-but-complete hook (~90 lines) with the right error handling (fail-open on parse error, never brick a session), the canonical `hookSpecificOutput` response format, and live editability (script re-read on each invocation, so config changes don't need a Claude restart). Usable as a starting template for `PostToolUse`, `Notification`, and the other hook types — they all follow the same stdin-JSON / stdout-JSON / exit-zero shape. The contract is documented in [`CLAUDE.md`](CLAUDE.md#the-hook-contract--dont-break-it).
+
 ## Repository layout
 
 ```
