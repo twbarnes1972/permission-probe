@@ -6,29 +6,29 @@ Non-blocking agent-to-human feedback queue. Agents write here during autonomous 
 
 ## Pending
 
-### [2026-05-18] FEAT-0001: Cadence pacing — manual now, `/schedule` after 1 month validation
-Picked "manual on-demand" as Stage 1, with `/schedule` weekly cron as Stage 2 once a `scripts/triage-sweep.sh` exists and has been run manually for ~1 month without failure. Confirm or override — alternatives are: full `/schedule` immediately (riskier; haven't observed failure modes yet), or fully-manual indefinitely (loses the recurring-discipline benefit). Reference: [PLAN §3](tasks/working_artifacts/FEAT-0001/PLAN.md#3-cadence--automation-surface--pick).
-
-### [2026-05-18] FEAT-0001: Commenting identity — defaulted to maintainer's personal account
-Drafts land in `tasks/working_artifacts/FEAT-0001/drafts/<gh#>.md` for review; maintainer posts via `gh issue comment` under their own GitHub identity (twbarnes1972). No bot account. Alternative is to create a dedicated bot account — more complexity, somewhat sterilized voice. Defaulted personal; please confirm. Reference: [PLAN §6](tasks/working_artifacts/FEAT-0001/PLAN.md#6-per-cycle-workflow-draft--pick).
-
-### [2026-05-18] FEAT-0001: Two follow-up investigations proposed — ISSUE-0002 (cd-prefix bypass) + ISSUE-0003 (RC-EDIT-PROMPT-2126 disambiguation)
-Research surfaced upstream #59498 (novel Bash matcher bypass via cd-prefix stripping) and #55255 (suggests bare Edit allow no longer suppresses prompts in v2.1.126+, contradicting our ISSUE-0001 finding). Both proposed as new internal tasks but not yet created. ISSUE-0003 is the higher-priority disambiguation pass since it affects the README's recommended workaround. Decide if/when to commission these.
-
-### [2026-05-18] FEAT-0002: Blog / external writeup policy — deferred
-Whether the maintainer wants to publish blog posts / external writeups of permission-probe research over time. PLAN defaulted "no until you say yes" because this is a personal-brand + time-budget decision. Confirm policy: never / case-by-case / yes (with what venues?). Reference: [FEAT-0002 PLAN §9](tasks/working_artifacts/FEAT-0002/PLAN.md#9-outward-facing-artifacts--pick).
-
-### [2026-05-18] FEAT-0002: Whether to commit binary baselines (offsets + disassembly context) publicly
-The change-tracking workflow stores claude.exe symbol offsets + disassembly snippets at `kb/baselines/`. Defaulted "commit publicly" (consistent with existing INVESTIGATION.md posture). Alternative: keep baselines private. Probably non-issue but flagging. Reference: [change-tracking.md](tasks/working_artifacts/FEAT-0002/change-tracking.md).
-
-### [2026-05-18] FEAT-0003: Pre-disclosure storage location — MUST decide before any actual security testing
-Three options outlined in [PLAN §7](tasks/working_artifacts/FEAT-0003/PLAN.md#7-pre-disclosure-storage): private GitHub repo, encrypted local files (`age`/`gpg`), or password-manager secure note. Provisional recommendation: private GitHub repo + GPG-encrypt individual high-sensitivity finding files. This is the single decision that must be resolved before any actual finding work begins. Plan is otherwise fully scoped.
-
-### [2026-05-18] FEAT-0003: Proactively submit RC-XIQ-MATCHER + RC-BYPASS-GATE to Anthropic VDP?
-The two known root causes from ISSUE-0001 may be bounty-ineligible under HackerOne's "widely publicized zero-day" exclusion (already public at #36884/#57132/#15921) but are still valid VDP submissions. PLAN defaults to "yes, submit through VDP with full conflict-of-interest disclosure" — gives the dev team a structured analysis they can act on. Confirm or veto.
-
-### [2026-05-18] FEAT-0003: Add a SECURITY.md to this repo
-PLAN recommends adding `SECURITY.md` at the repo root that (a) routes actual Claude Code vuln reports to Anthropic's HackerOne, and (b) declares this repo's own scope (the hook script — small) for direct PRs / issues. Content needs maintainer review for phrasing before posting. Effort: ~30 min if approved.
-
 ## Resolved
+
+### [2026-05-18] FEAT-0001: Cadence pacing — manual now, `/schedule` after 1 month validation
+**Resolution (2026-05-18):** Confirmed — proceed with the planned two-stage rollout. Manual via `scripts/triage-sweep.sh` until ~1 month of stable runs, then wrap in `/schedule` weekly cron.
+
+### [2026-05-18] FEAT-0001: Commenting identity — maintainer personal account with AI-disclosure footer
+**Resolution (2026-05-18):** Confirmed — post under @twbarnes1972 with the per-comment AI-assistance disclosure footer kept in every template. No bot account.
+
+### [2026-05-18] FEAT-0001: Commission ISSUE-0002 + ISSUE-0003
+**Resolution (2026-05-18):** Both commissioned. Created `tasks/open/ISSUE-0002.md` (cd-prefix Bash bypass, Medium) and `tasks/open/ISSUE-0003.md` (RC-EDIT-PROMPT-2126 disambiguation, High). ISSUE-0002 flagged as potentially security-sensitive — may route through FEAT-0003 disclosure pipeline rather than public commentary.
+
+### [2026-05-18] FEAT-0002: Blog / external writeup policy
+**Resolution (2026-05-18):** "Yes, opportunistic." Take natural opportunities (post-release Show HN, security-blog invitation, conference CFP, podcast). Per-piece quality bar + conflict-of-interest disclosure required. Hard constraint: any external writeup that touches a finding before Anthropic's coordinated disclosure window completes is forbidden ([ethical-guardrails G2](tasks/working_artifacts/FEAT-0003/ethical-guardrails.md#g2-no-public-leak-path)). FEAT-0002 PLAN §9 updated accordingly.
+
+### [2026-05-18] FEAT-0002: Public binary baselines
+**Resolution (2026-05-18):** Commit publicly. Consistent with existing INVESTIGATION.md posture; baselines are small (KB range) and let any reader follow the change-tracking workflow exactly. change-tracking.md "Open questions" section updated to "Resolved decisions."
+
+### [2026-05-18] FEAT-0003: Pre-disclosure storage location
+**Resolution (2026-05-18):** Co-located gitignored folder at the repo root: `permission-probe-research/`. Added to `.gitignore`. Visible counterpart README at `tasks/working_artifacts/FEAT-0003/findings/README.md` (committed) explains the convention publicly. Local README inside `permission-probe-research/` documents the hard rules for working in that folder. **Caveat flagged to maintainer:** with no cloud sync, off-workstation backup is now the maintainer's responsibility — set up encrypted external/cloud backup for that folder before doing actual security work. FEAT-0003 PLAN §7 and finding-template.md updated accordingly.
+
+### [2026-05-18] FEAT-0003: Proactive VDP submission of RC-XIQ-MATCHER + RC-BYPASS-GATE
+**Resolution (2026-05-18):** Yes, submit via VDP. Commissioned as `tasks/open/GTSK-0002.md`. Both go to hackerone.com/anthropic-vdp with full disassembly + conflict-of-interest disclosure, adapted from the existing upstream-comment drafts in `tasks/working_artifacts/ISSUE-0001/upstream-comments/`. May be spaced 24-48h apart to avoid brigade-appearance per ethical-guardrails G5.
+
+### [2026-05-18] FEAT-0003: Add SECURITY.md to this repo
+**Resolution (2026-05-18):** Added `SECURITY.md` at the repo root. Routes Claude Code vulnerabilities to Anthropic's HackerOne + `disclosure@anthropic.com`; routes vulnerabilities in this repo's own code (the hook script + probe) to GitHub issues / security advisories on `twbarnes1972/permission-probe`. Includes a brief explanation of the security-research charter (FEAT-0003) for context. Written inline rather than spinning up a DOC-0001 task ceremony for a ~30-min file.
 

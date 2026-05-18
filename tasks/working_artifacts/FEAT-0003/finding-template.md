@@ -128,8 +128,8 @@ Before promoting this finding to a public WRITEUP.md:
 
 ## Pre-disclosure storage rule
 
-Pre-disclosure findings **do not live in this public repo**. They live in the maintainer's private storage per [PLAN §7](PLAN.md#7-pre-disclosure-storage).
+Pre-disclosure findings live in the **gitignored** `permission-probe-research/` folder at the repo root — co-located with the rest of the work, never committed. See [PLAN §7](PLAN.md#7-pre-disclosure-storage--resolved) and [permission-probe-research/README.md](../../../permission-probe-research/README.md) on the maintainer's workstation.
 
-`tasks/working_artifacts/FEAT-0003/findings/` in this public repo is reserved for *post-disclosure* writeups. The folder will appear here once the first finding completes its disclosure window.
+`tasks/working_artifacts/FEAT-0003/findings/` in this public repo is reserved for **post-disclosure** writeups. The promotion procedure (when Anthropic's window closes) is documented in the local-only README.
 
 <!-- version: v2026.05.18.01 -->

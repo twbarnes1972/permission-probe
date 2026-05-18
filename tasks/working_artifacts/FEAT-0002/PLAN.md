@@ -176,13 +176,13 @@ Cross-link convention: KB pages link to memory entries by `[[memory-slug]]` when
 
 ## 9. Outward-facing artifacts — pick
 
-**Decision: README enhancements are encouraged (the repo IS the public face); blog posts / external writeups are deferred to a separate decision; upstream doc PRs are encouraged if narrowly scoped and obviously correct.**
+**Decision: README enhancements are encouraged. Blog posts / external writeups are opportunistic — yes when a natural opportunity appears, with hard constraints. Upstream doc PRs are encouraged if narrowly scoped and obviously correct.**
 
 Specific policy:
 - **README updates** as understanding deepens: add a "Status" subsection when an RC is confirmed fixed, add a deprecation banner when the workaround becomes obsolete, link new RC entries.
 - **Upstream contributions:** if our research reveals a clearly missing piece in the docs (e.g., filesystem ACL behavior — currently undocumented), open a PR against `anthropics/claude-code` docs proposing the addition. Bias toward small, single-topic PRs that maintainers can accept quickly.
-- **Blog / external writeups:** ESCALATED — this is a personal-brand / time-budget decision that needs maintainer input. Default no until the maintainer says yes.
-- **Disclosure stance on any comment / PR:** "Maintainer of [permission-probe](https://github.com/twbarnes1972/permission-probe); GPL-3.0 with a standing license grant to Anthropic for Claude Code inclusion." Standard footer, same as FEAT-0001 §10.
+- **Blog / external writeups (resolved 2026-05-18 — "yes, opportunistic"):** take the opportunity when a natural one appears (Show HN moment after a meaningful release, security-blog invitation, conference CFP, podcast). Per-piece quality bar: must add value beyond what's already in the repo's INVESTIGATION.md, must be honest and citation-backed, must include the conflict-of-interest disclosure (the Anthropic carve-out in NOTICE.md). **Hard constraint from [FEAT-0003 ethical-guardrails G2](../FEAT-0003/ethical-guardrails.md#g2-no-public-leak-path):** any external writeup that touches a finding before Anthropic's coordinated disclosure window completes is forbidden. The "opportunistic yes" applies only to *post-disclosure* writeups or to work already public in this repo.
+- **Disclosure stance on any comment / PR / blog post:** "Maintainer of [permission-probe](https://github.com/twbarnes1972/permission-probe); GPL-3.0 with a standing license grant to Anthropic for Claude Code inclusion." Standard footer, same as FEAT-0001 §10 and FEAT-0003 §12.
 
 ## 10. Tooling inventory
 

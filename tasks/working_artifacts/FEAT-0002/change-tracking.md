@@ -139,10 +139,9 @@ Tertiary fires (docs changed):
   → if docs contradict observed behavior: flag for investigation
 ```
 
-## Open question — escalated
+## Resolved decisions
 
-Some change-tracking decisions need maintainer input:
-- Whether baselines should be committed publicly. They're small binary-derived snippets (offsets + disassembly context) — useful but they're also evidence of "we're disassembling the binary." Defensible either way; default committed (consistent with this repo's existing posture of INVESTIGATION.md being public).
-- Whether to set up the `/schedule` cron immediately or wait for the FEAT-0001 cadence decision. Shares automation surface.
+- **Baselines committed publicly (resolved 2026-05-18):** `kb/baselines/` is committed to the repo. Consistent with the existing INVESTIGATION.md posture; the methodology is already public, so hiding the resulting snapshots gains nothing.
+- **Cron timing (resolved 2026-05-18, shared with FEAT-0001):** manual / on-demand for Stage 1. `/schedule` weekly cron lands in Stage 2 after ~1 month of stable manual runs.
 
 <!-- version: v2026.05.18.01 -->

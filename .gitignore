@@ -5,3 +5,9 @@ __pycache__/
 .DS_Store
 .vscode/
 .claude/
+
+# Pre-disclosure security findings — see tasks/working_artifacts/FEAT-0003/findings/README.md
+# Anything in this folder MUST NEVER be committed. Findings move out only after
+# Anthropic's coordinated disclosure window closes.
+permission-probe-research/
+

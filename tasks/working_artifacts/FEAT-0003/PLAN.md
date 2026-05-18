@@ -145,19 +145,33 @@ Headline structure:
 
 Same rigor as [INVESTIGATION.md](../ISSUE-0001/INVESTIGATION.md) — citation-backed, version-pinned, empirical.
 
-## 7. Pre-disclosure storage
+## 7. Pre-disclosure storage — RESOLVED
 
-**ESCALATED.** This is the single decision in this plan that genuinely needs maintainer input. Three options on the table:
+**Decision (2026-05-18):** Pre-disclosure findings live in a **gitignored folder at the repo root**: `permission-probe-research/`. Co-located with the rest of the work, never committed.
 
-| Option | Pros | Cons |
-|---|---|---|
-| Private GitHub repo (e.g., `twbarnes1972/permission-probe-research`) | Familiar tooling, git history, easy AI-session access, free for one user | Findings live with a third party (GitHub/Microsoft); platform compromise → finding leak |
-| Encrypted local files (`age` or `gpg`) under `~/security/permission-probe/` | Maximum control; offline-readable; no third-party trust | No git history; backup is on maintainer; AI sessions need explicit decrypt step |
-| Secure note in a password manager (1Password / Bitwarden) | Easy access; tested backup story; small scope appropriate | Bad for large evidence files (screenshots, binaries, debug logs); awkward to compose long writeups in |
+Implementation:
+- `.gitignore` excludes `permission-probe-research/` (line 12).
+- The folder exists on the maintainer's workstation; an internal README inside it documents the convention (also gitignored, lives locally).
+- A visible counterpart `tasks/working_artifacts/FEAT-0003/findings/README.md` (committed) explains the convention to anyone reading the public repo.
 
-**My provisional recommendation** for maintainer to confirm: **private GitHub repo**, on the rationale that (a) it's the tool the maintainer already uses fluently, (b) git history is genuinely valuable for evidence chain-of-custody, (c) GitHub's security posture for private repos is reasonable for the threat model. Pair with: GPG-encrypt any individual finding whose exposure-cost is unusually high (the file is `agent` or `age`-encrypted, then committed). Belt + suspenders.
+**Per-finding layout (inside the gitignored folder):**
+```
+permission-probe-research/
+  <YYYY-MM-DD>-<short-slug>/
+    FINDING.md          # using finding-template.md
+    repro/              # POC code, logs, screenshots
+    correspondence/     # HackerOne / email copies (date-prefixed)
+```
 
-Strict rule regardless of which option is chosen: **`tasks/working_artifacts/FEAT-0003/findings/` in this public repo is reserved for *post-disclosure* writeups only.** A `.gitignore`-on-existence rule should be applied to a `findings-pending/` subdir if pre-disclosure work briefly lives here for editing — but realistic recommendation: pre-disclosure work happens in the private repo, not even briefly here.
+**Strict rules:**
+1. Nothing inside `permission-probe-research/` is ever committed. Verify via `git check-ignore -v permission-probe-research` before staging anything that touches the area.
+2. **Backup responsibility shifts to the maintainer.** Git was the implicit backup for other repo work; it's gone here. Set up an off-workstation backup path (encrypted external drive, encrypted cloud snapshot). If the workstation dies, findings die with it.
+3. `tasks/working_artifacts/FEAT-0003/findings/` in the *public* repo is reserved for **post-disclosure** writeups. The promotion procedure (when Anthropic's window closes) is in [permission-probe-research/README.md](../../../permission-probe-research/README.md).
+
+**Rejected alternatives** (and why):
+- Private GitHub repo: external dependency for a tiny number of files; the security-vs-convenience tradeoff didn't justify it.
+- Encrypted local files (`age` / `gpg`): more friction per access for marginal extra protection given the threat model.
+- Password-manager secure note: bad for evidence files (screenshots, binaries, debug logs).
 
 ## 8. Post-disclosure publication policy
 
