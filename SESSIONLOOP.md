@@ -6,7 +6,7 @@ How to open and close a working session. Keep this short -- the checklist, not t
 
 ## Starting a New Session
 
-- push/pull and resolve any merge conflicts
+- `git pull` and resolve any merge conflicts (no push at session start)
 - Read `CLAUDE.md` for project context (layout, conventions, tooling status)
 - Read `SESSION.md` for carryover state (in-flight tasks, resume hints, open questions)
 - Read `ESCALATIONS.md` **Pending** and act on anything the previous session flagged -- resolve in place, or defer with a note
@@ -27,4 +27,8 @@ How to open and close a working session. Keep this short -- the checklist, not t
     - **non-blocking feedback that needs the human's attention** -> `ESCALATIONS.md` (per `tasks/escalation_handling.md`)
     - **process/collaboration calibration (either direction)** -> `FEEDBACK.md` (per `tasks/feedback_handling.md`)
 - **Mutual feedback moment** -- either side offers one line about how the session went per [tasks/feedback_handling.md](./tasks/feedback_handling.md). Genuinely optional; skip if nothing to flag. Write entries to FEEDBACK.md, not the session file. Positive feedback is welcome too.
-- push/pull and resolve any merge conflicts
+- `git pull` and resolve any merge conflicts
+- **Push is permission-gated.** This is a public repo. Do **not** `git push` at session end by default -- local commits are fine, the push stays local until the human approves it. Push only when:
+    - the session closed a major milestone or substantive piece of work that the human wants public, **and**
+    - the human has explicitly given the go-ahead for this push (a standing "you can always push" instruction does not exist; ask each time).
+  If unsure whether the work qualifies, ask before pushing. When in doubt, leave it for the next session.

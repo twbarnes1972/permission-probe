@@ -19,6 +19,10 @@ Related: [tasks/feedback_handling.md](./tasks/feedback_handling.md) -- format, t
 
 _(Agent-originated feedback about how sessions or collaboration felt. Non-blocking. Human reviews and acknowledges or acts on at session start. Examples: felt whipsawed by rapid direction changes, scope shifted mid-execution without re-alignment, context was thin, instructions conflicted.)_
 
+### [2026-05-18] Recommended-option intake questions moved fast
+
+When INSTRUCTIONS.md item shape is "clear default + 2-3 well-defined alternatives," asking via `AskUserQuestion` with a flagged Recommended option in first position worked well today — all three intake decisions resolved in a single round of taps. Pattern worth keeping for similar intake situations: surface the decision but make the path-of-least-resistance the right one.
+
 ---
 
 ## From Human
@@ -30,3 +34,9 @@ _(Human-originated feedback about agent behavior, output quality, or process. Ag
 ## Resolved
 
 _(Addressed items -- moved here with a short resolution note and date. Periodically pruned; git history is the archive.)_
+
+### [2026-05-18] Velocity + relevant-escalation balance — positive pattern to reinforce
+
+**Original (From Human):** "I feel you have done a very excellent job [of] moving with velocity while raising relevant escalations when necessary."
+
+**Resolution (2026-05-18):** Acknowledged. Routed to memory as a behavioral pattern (per `tasks/feedback_handling.md` §"How Feedback Is Processed") so the validated working balance persists across sessions — fast execution on clear directives, pause-to-surface only when there's a real decision or risk on the table. Memory phrasing surfaced to maintainer before saving.
