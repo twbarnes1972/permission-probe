@@ -20,13 +20,15 @@ const pm = require('picomatch');
 
 const SETTINGS = path.join(process.env.USERPROFILE || process.env.HOME, '.claude', 'settings.json');
 
-// Paths we want to allow (these are the ones that get prompts today).
+// Paths to probe against the rules in your settings.json. Replace with the
+// real paths that prompt for you — the variety below exercises different
+// separator / drive-letter forms so you can see which (if any) ever match.
 const TEST_PATHS = [
-  'C:\\Data\\twb-z13\\README.md',                                          // inside CWD
-  'C:\\Data\\Workspace\\stackagentic-library\\FEEDBACK.md',                // sibling repo (the one that prompted)
-  'C:\\Data\\Workspace\\calendar-card-dashboard\\SESSION.md',
-  'C:/Data/Workspace/stackagentic-library/FEEDBACK.md',                    // forward-slash form
-  '/c/Data/Workspace/stackagentic-library/FEEDBACK.md',                    // POSIX-Windows form
+  'C:\\Data\\projects\\current-repo\\README.md',                           // inside CWD
+  'C:\\Data\\projects\\sibling-repo\\NOTES.md',                            // sibling repo (typical prompt case)
+  'C:\\Data\\projects\\other-repo\\file.md',
+  'C:/Data/projects/sibling-repo/NOTES.md',                                // forward-slash form
+  '/c/Data/projects/sibling-repo/NOTES.md',                                // POSIX-Windows form
 ];
 
 // Pattern variants we'll synthesize for each rule, to compare effects.

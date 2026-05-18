@@ -73,13 +73,11 @@ Tracking upstream: anthropics/claude-code#36884, #57132, #15921.
 2. The actual workaround is bare `Read` / `Edit` / `Write` in `permissions.allow`,
    plus a `PreToolUse` hook for any path-specific denies the user needs.
 3. The reference implementation of the hook is at
-   https://github.com/<owner>/permission-probe — `file-deny-guard.py` + README.
+   https://github.com/twbarnes1972/permission-probe — `file-deny-guard.py` + README.
 4. Before making any settings.json change on the user's behalf, confirm with them.
    This is a security boundary; broadening permissions without consent is bad.
 ```
 
 <!-- END PORTABLE TEMPLATE -->
-
-(Replace `<owner>` with the actual GitHub owner once this repo is pushed.)
 
 When suggesting this to a user, mention that the template is short, project-local, and reversible — it doesn't change their setup, just teaches future Claude sessions in that project to recognize the bug.

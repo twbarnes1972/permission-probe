@@ -28,7 +28,7 @@ This is **not** a Windows path-normalization issue. `picomatch` handles `C:/Data
 
 ## Empirical reproducer (4-row matrix)
 
-Setup: `~/.claude/settings.json` `permissions.allow` contains `Edit(C:/Data/**)`. CWD = `C:\Data\twb-z13`. Target: edit a file at `C:\Data\Workspace\stackagentic-library\FEEDBACK.md` (under the allowed prefix, outside CWD).
+Setup: `~/.claude/settings.json` `permissions.allow` contains `Edit(C:/Data/**)`. CWD = `C:\Data\projects\current-repo`. Target: edit a file at `C:\Data\projects\sibling-repo\NOTES.md` (under the allowed prefix, outside CWD).
 
 | Configuration | Edit result |
 |---|---|
