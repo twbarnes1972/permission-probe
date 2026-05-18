@@ -40,3 +40,9 @@ _(Addressed items -- moved here with a short resolution note and date. Periodica
 **Original (From Human):** "I feel you have done a very excellent job [of] moving with velocity while raising relevant escalations when necessary."
 
 **Resolution (2026-05-18):** Acknowledged. Routed to memory as a behavioral pattern (per `tasks/feedback_handling.md` §"How Feedback Is Processed") so the validated working balance persists across sessions — fast execution on clear directives, pause-to-surface only when there's a real decision or risk on the table. Memory phrasing surfaced to maintainer before saving.
+
+### [2026-05-18] RCA before fix — counterweight to the velocity pattern
+
+**Original (From Human):** "when there is an issue we are troubleshooting, it's import[ant] to take the time [to] do empirical analysis and/or testing in order to establish a root cause analysis to logically deduce what the actual fix should be. I bring this up, because when related to velocity, sometime[s] slow is smooth, and smooth is fast."
+
+**Resolution (2026-05-18):** Acknowledged. Routed to memory as the complementary half of the velocity-escalation pattern. Velocity defaults apply to clear directives; investigations defer to empirical root-cause analysis before deducing a fix. Both memories cross-linked (`feedback_velocity_escalation_balance.md` ↔ `feedback_rca_before_fix.md`) so reading either surfaces the other. Memory phrasing surfaced to maintainer before saving.
