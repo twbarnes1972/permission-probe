@@ -66,7 +66,7 @@ Any rule with parens content (`Edit(/path/**)` → `{toolName: "Edit", ruleConte
 
 Independent verification that the bug is upstream of picomatch: `probe.js` in this repo loads the user's settings.json, parses each `Edit/Read/Write(...)` rule, and tests every (pattern variant × picomatch option) combination against absolute paths. picomatch correctly matches `C:/Data/**` against Windows absolute paths under every option variant. The matcher never reaches picomatch for these rules — the rule is rejected at `XIq` first.
 
-Full narrative including the methodology, code excerpts, and decision-flow walkthrough is in [`docs/INVESTIGATION.md`](../../docs/INVESTIGATION.md).
+Full narrative including the methodology, code excerpts, and decision-flow walkthrough is in [`INVESTIGATION.md`](../working_artifacts/ISSUE-0001/INVESTIGATION.md) (companion artifact).
 
 ## Work Completed
 
@@ -75,7 +75,7 @@ Full narrative including the methodology, code excerpts, and decision-flow walkt
 - **Eliminated downstream theories.** Built `probe.js` to demonstrate picomatch correctly matches path-globbed patterns against Windows/POSIX absolute paths under every option variant — proving the bug is not in picomatch.
 - **Built workaround hook.** `file-deny-guard.py` — a `PreToolUse` hook that lives below the broken `XIq` filter in the decision flow, so it actually fires. Inspects `tool_input.file_path` / `notebook_path` against a user-editable `DENY_PATTERNS` list and emits a `permissionDecision: deny` for matches. Fail-open on JSON parse error (deliberate — bricking a session is worse than the rare passthrough). Patterns are live-editable; only the hook registration needs a Claude restart.
 - **Documented Windows install gotcha.** Hook runner's shell parsing strips backslashes from the hook command string; forward slashes in the script path are required (`python C:/path/to/file-deny-guard.py`). Surfaced this in both the README and `INVESTIGATION.md` because it makes every Read/Edit fail-closed in a confusing way if missed.
-- **Drafted upstream comments.** Three threads: [#36884](https://github.com/anthropics/claude-code/issues/36884) (primary root-cause report with the disassembly), [#57132](https://github.com/anthropics/claude-code/issues/57132) (Linux variant, cross-link), [#15921](https://github.com/anthropics/claude-code/issues/15921) (multi-bug umbrella thread; covers both Finding #1 and Finding #2, explicit about which symptom is *not* explained). Drafts live in `docs/upstream-comments/`.
+- **Drafted upstream comments.** Three threads: [#36884](https://github.com/anthropics/claude-code/issues/36884) (primary root-cause report with the disassembly), [#57132](https://github.com/anthropics/claude-code/issues/57132) (Linux variant, cross-link), [#15921](https://github.com/anthropics/claude-code/issues/15921) (multi-bug umbrella thread; covers both Finding #1 and Finding #2, explicit about which symptom is *not* explained). Drafts live in this task's companion-artifact folder under `upstream-comments/`.
 - **Published publicly.** Repo licensed GPL-3.0 with a standing Anthropic grant in `NOTICE.md` so the matcher fix or hook ideas can be incorporated upstream without friction. CLAUDE.md added with maintenance contract for future AI sessions plus a portable template users can drop into their own projects' `CLAUDE.md`. Pre-publication scrub pass removed workstation-specific sibling-project names from `probe.js` test paths and the upstream-comment draft. Pushed to `https://github.com/twbarnes1972/permission-probe`.
 
 ## Dependencies
@@ -95,10 +95,10 @@ Full narrative including the methodology, code excerpts, and decision-flow walkt
 
 ## Related
 
-- [`docs/INVESTIGATION.md`](../../docs/INVESTIGATION.md) — full investigation narrative, methodology, code excerpts, both findings.
-- [`docs/upstream-comments/upstream-comment-36884.md`](../../docs/upstream-comments/upstream-comment-36884.md) — primary root-cause comment draft.
-- [`docs/upstream-comments/upstream-comment-57132.md`](../../docs/upstream-comments/upstream-comment-57132.md) — Linux cross-link.
-- [`docs/upstream-comments/upstream-comment-15921.md`](../../docs/upstream-comments/upstream-comment-15921.md) — multi-bug thread; both findings.
+- [`INVESTIGATION.md`](../working_artifacts/ISSUE-0001/INVESTIGATION.md) — full investigation narrative, methodology, code excerpts, both findings.
+- [`upstream-comments/upstream-comment-36884.md`](../working_artifacts/ISSUE-0001/upstream-comments/upstream-comment-36884.md) — primary root-cause comment draft.
+- [`upstream-comments/upstream-comment-57132.md`](../working_artifacts/ISSUE-0001/upstream-comments/upstream-comment-57132.md) — Linux cross-link.
+- [`upstream-comments/upstream-comment-15921.md`](../working_artifacts/ISSUE-0001/upstream-comments/upstream-comment-15921.md) — multi-bug thread; both findings.
 - [`app-src/py-helpers/file-deny-guard.py`](../../app-src/py-helpers/file-deny-guard.py) — workaround hook.
 - [`app-src/js-probes/probe.js`](../../app-src/js-probes/probe.js) — picomatch verification probe.
 - Commit `5867746` — initial commit (hook + probe).

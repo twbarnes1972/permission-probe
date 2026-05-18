@@ -2,7 +2,7 @@
 
 A `PreToolUse` hook and diagnostic for a Claude Code permission-matcher bug where path-globbed `Edit(...)`, `Read(...)`, `Write(...)` allow/deny rules in `~/.claude/settings.json` are silently ignored. If you've been hit by Claude Code prompting for files you've explicitly allowed in settings, this is why.
 
-Full story: [`docs/INVESTIGATION.md`](docs/INVESTIGATION.md). Upstream tracking: [#36884](https://github.com/anthropics/claude-code/issues/36884) · [#57132](https://github.com/anthropics/claude-code/issues/57132) · [#15921](https://github.com/anthropics/claude-code/issues/15921).
+Full story: [`tasks/working_artifacts/ISSUE-0001/INVESTIGATION.md`](tasks/working_artifacts/ISSUE-0001/INVESTIGATION.md). Upstream tracking: [#36884](https://github.com/anthropics/claude-code/issues/36884) · [#57132](https://github.com/anthropics/claude-code/issues/57132) · [#15921](https://github.com/anthropics/claude-code/issues/15921).
 
 ## Quick start
 
@@ -33,7 +33,7 @@ Customize the `DENY_PATTERNS` list at the top of `app-src/py-helpers/file-deny-g
 
 Beyond the specific bug, this repo doubles as a worked example for two recurring needs:
 
-- **Debugging Claude Code permission issues.** [`docs/INVESTIGATION.md`](docs/INVESTIGATION.md#methodology) walks through the diagnostic methodology: `claude --print --debug "permission,tool" --debug-file out.log` to capture matcher decisions without UI prompts, plus offset-and-`dd` binary disassembly when the docs disagree with reality. Reusable for any Claude Code permission question, not just this one.
+- **Debugging Claude Code permission issues.** [`tasks/working_artifacts/ISSUE-0001/INVESTIGATION.md`](tasks/working_artifacts/ISSUE-0001/INVESTIGATION.md#methodology) walks through the diagnostic methodology: `claude --print --debug "permission,tool" --debug-file out.log` to capture matcher decisions without UI prompts, plus offset-and-`dd` binary disassembly when the docs disagree with reality. Reusable for any Claude Code permission question, not just this one.
 - **Writing a `PreToolUse` hook.** [`app-src/py-helpers/file-deny-guard.py`](app-src/py-helpers/file-deny-guard.py) is a minimal-but-complete hook (~90 lines) with the right error handling (fail-open on parse error, never brick a session), the canonical `hookSpecificOutput` response format, and live editability (script re-read on each invocation, so config changes don't need a Claude restart). Usable as a starting template for `PostToolUse`, `Notification`, and the other hook types — they all follow the same stdin-JSON / stdout-JSON / exit-zero shape. The contract is documented in [`CLAUDE.md`](CLAUDE.md#the-hook-contract--dont-break-it).
 
 ## Repository layout
@@ -45,9 +45,11 @@ app-src/
   js-probes/
     probe.js              # Node diagnostic, proves picomatch isn't the bug
     package.json          # picomatch dep for probe.js
-docs/
-  INVESTIGATION.md        # full disassembly walkthrough — read for the "why"
-  upstream-comments/      # drafts of the three comments posted to anthropics/claude-code
+tasks/
+  closed/ISSUE-0001.md    # retrospective task record for the work that produced this repo
+  working_artifacts/ISSUE-0001/
+    INVESTIGATION.md      # full disassembly walkthrough — read for the "why"
+    upstream-comments/    # drafts of the three comments posted to anthropics/claude-code
 CLAUDE.md                 # guidance for AI assistants (maintenance + portable template)
 LICENSE                   # GPL-3.0
 NOTICE.md                 # standing Anthropic carve-out on top of the GPL
@@ -65,7 +67,7 @@ Loads `~/.claude/settings.json`, parses every path-globbed rule, and tests each 
 
 ## Status
 
-Open upstream — when [#36884](https://github.com/anthropics/claude-code/issues/36884) and friends ship a fix, this workaround becomes obsolete. [`docs/INVESTIGATION.md`](docs/INVESTIGATION.md#verifying-the-bug-is-still-present-in-a-future-release) has the recipe for verifying when the fix lands.
+Open upstream — when [#36884](https://github.com/anthropics/claude-code/issues/36884) and friends ship a fix, this workaround becomes obsolete. [`tasks/working_artifacts/ISSUE-0001/INVESTIGATION.md`](tasks/working_artifacts/ISSUE-0001/INVESTIGATION.md#verifying-the-bug-is-still-present-in-a-future-release) has the recipe for verifying when the fix lands.
 
 ## License
 

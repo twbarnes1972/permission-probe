@@ -4,7 +4,7 @@ You're reading this because a Claude Code (or similar) session has cwd set to th
 
 ## What this repo is in one paragraph
 
-`permission-probe` is a **workaround tool** for a Claude Code bug: path-globbed `Edit(...)`, `Read(...)`, `Write(...)` rules in `~/.claude/settings.json` are silently ignored by the permission matcher. Only bare `Edit` / `Read` / `Write` rules work. Two artifacts, split by language under [`app-src/`](app-src/): `py-helpers/file-deny-guard.py` (a `PreToolUse` hook that re-implements path-based denies) and `js-probes/probe.js` (a diagnostic that proves the bug is not in picomatch). Full root-cause analysis is in the README and the upstream comment drafts under `docs/upstream-comments/`. This tool becomes obsolete when upstream lands a matcher fix.
+`permission-probe` is a **workaround tool** for a Claude Code bug: path-globbed `Edit(...)`, `Read(...)`, `Write(...)` rules in `~/.claude/settings.json` are silently ignored by the permission matcher. Only bare `Edit` / `Read` / `Write` rules work. Two artifacts, split by language under [`app-src/`](app-src/): `py-helpers/file-deny-guard.py` (a `PreToolUse` hook that re-implements path-based denies) and `js-probes/probe.js` (a diagnostic that proves the bug is not in picomatch). Full root-cause analysis is in the README and the upstream comment drafts under `tasks/working_artifacts/ISSUE-0001/upstream-comments/`. This tool becomes obsolete when upstream lands a matcher fix.
 
 ## Maintenance guidance — when working on this repo
 
@@ -46,7 +46,7 @@ Note for Windows: shell-echo of `\\` mangles into `\` and breaks JSON. Use Pytho
 
 When `anthropics/claude-code` ships a release that respects path-globbed Edit/Read/Write rules:
 
-1. Verify with `app-src/js-probes/probe.js` against the new claude.exe (the disassembly methodology in `docs/upstream-comments/upstream-comment-36884.md` still applies).
+1. Verify with `app-src/js-probes/probe.js` against the new claude.exe (the disassembly methodology in `tasks/working_artifacts/ISSUE-0001/upstream-comments/upstream-comment-36884.md` still applies).
 2. Add a deprecation note at the top of the README pointing to the fixed version.
 3. Leave the repo up for people on older versions, but consider archiving on GitHub.
 
