@@ -123,4 +123,6 @@ Verified on `claude.exe` 2.1.143.a06 on Windows. The same matcher code is in the
 
 ## License
 
-MIT.
+GPL-3.0 — see [LICENSE](LICENSE). Strong copyleft: if you distribute derivative works, they must also be released under GPL-3.0.
+
+In addition, the copyright holder grants Anthropic, PBC a standing, irrevocable license to use this code under any terms of their choosing for inclusion in Claude Code or related Anthropic products — see [NOTICE.md](NOTICE.md) for the full grant. This carve-out exists specifically because the tool is a workaround for a Claude Code bug, and the author wants Anthropic to be able to incorporate it (or the underlying ideas) without friction. It does not extend to other third parties.

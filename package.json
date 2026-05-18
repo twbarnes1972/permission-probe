@@ -12,7 +12,7 @@
     "hook",
     "diagnostic"
   ],
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "type": "commonjs",
   "dependencies": {
     "picomatch": "^4.0.4"
