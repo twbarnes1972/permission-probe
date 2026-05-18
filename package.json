@@ -1,0 +1,20 @@
+{
+  "name": "permission-probe",
+  "version": "1.0.0",
+  "description": "Diagnostic tools and a workaround hook for a Claude Code permission-matcher bug where path-globbed Edit/Read/Write rules in settings.json are silently ignored.",
+  "main": "probe.js",
+  "scripts": {
+    "probe": "node probe.js"
+  },
+  "keywords": [
+    "claude-code",
+    "permissions",
+    "hook",
+    "diagnostic"
+  ],
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "picomatch": "^4.0.4"
+  }
+}
