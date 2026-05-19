@@ -30,14 +30,18 @@ None pending. ESCALATIONS, FEEDBACK, and INSTRUCTIONS are all empty.
 
 ## Recent Sessions
 
-### 2026-05-18 (session 2) — INSTRUCTIONS intake + push-gating rule
+### 2026-05-18 (session 2) — INSTRUCTIONS intake + push-gating rule + `documentation/` scaffold
 
 - Processed three items from INSTRUCTIONS.md per `tasks/instruction_handling.md`:
   - Item 1 → [FEAT-0004](tasks/open/FEAT-0004.md) (planning task — broaden contribution scope to permissions/identity portfolio).
   - Item 2 → [DOC-0001](tasks/open/DOC-0001.md) (adapt opensource.guide content into `documentation/open-source-contributing/` under CC-BY-4.0).
   - Item 3 → [GTSK-0003](tasks/open/GTSK-0003.md) (paid bug bounty research scoped to FEAT-0004's project list).
 - Updated [SESSIONLOOP.md](./SESSIONLOOP.md) push-gating: pulls remain auto, **pushes require explicit per-push go-ahead** from the maintainer (public repo; no standing approval).
-- No implementation work started; pure intake + procedure tweak.
+- Late additions to the same session:
+  - Maintainer added a second feedback item — RCA before fix; "slow is smooth, smooth is fast." Routed to memory as [`feedback_rca_before_fix.md`](C:\Users\tbarnes\.claude\projects\C--Data-Workspace-permission-probe\memory\feedback_rca_before_fix.md), cross-linked with the existing velocity memory so the pair forms a complete picture (velocity defaults apply to clear directives; investigations defer to empirical RCA).
+  - Maintainer commissioned a `documentation/` tree (no task ceremony — direct work): top-level index, `claude/` section (with mental-model topic file), `conventions/` section (with the markdown-documentation convention copied verbatim from `C:\Data\twb-z13\documentation\conventions\markdown-documentation.md`). Convention adopted; future doc work in this repo follows it.
+  - README link to `documentation/documentation.md` **not yet added** — deferred to the README refactor contemplated in [FEAT-0004](tasks/open/FEAT-0004.md). Folded into FEAT-0004's scope.
+  - Implication for [DOC-0001](tasks/open/DOC-0001.md): the `documentation/` parent now exists and the convention is in place. DOC-0001's `open-source-contributing/` becomes a new section under `documentation/`, following the same back-link + index pattern. Implementation phase should re-read `documentation/conventions/markdown-documentation.md` before authoring guide content.
 
 ### 2026-05-18 (session 1) — Planning bundles + escalation walk-through
 
