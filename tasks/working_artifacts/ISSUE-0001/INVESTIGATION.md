@@ -200,10 +200,15 @@ Going through the typical user's allow/deny lists:
 | `Bash(git status:*)`                     | Bash        | yes      |
 | `PowerShell(git config *)`               | PowerShell  | yes      |
 | `Skill(some-skill)`                      | Skill       | **NO** (same XIq filter) |
-| `mcp__server__tool` (bare, no parens)    | MCP         | yes      |
+| `mcp__server__tool` (bare, no parens)    | MCP         | yes (sdk-cli) / **NO** (TUI) † |
+| `mcp__*` (catch-all wildcard)            | MCP         | yes (sdk-cli) / **NO** (TUI) † |
 | `mcp__server__tool(arg)` (with parens)   | MCP         | **NO**   |
 
 The pattern: any rule with `ruleContent` works only if the corresponding tool has its own content matcher (Bash, PowerShell). Otherwise it's a no-op.
+
+**RESOLVED upstream (added 2026-07-12):** every **NO** in this table (and the † TUI divergence below) was retested on claude.exe **2.1.207** and now works: path-globbed `Edit(...)` allow rules match, path-globbed deny rules override bare allows (verified in both `--print` and ConPTY-driven interactive TUI), `"defaultMode": "bypassPermissions"` activates from settings.json, and bare MCP allow rules are honored in the TUI (`permissionDecisionMs=0`, `entrypoint=cli`). Notably the `XIq` reject filter (`ruleContent!==void 0 → return false`, now minified as `pto`) is *still present* in the 2.1.207 binary — upstream fixed the behavior by adding a separate content-matching path rather than removing the filter. The table above is preserved as the record for ≤2.1.144. Full retest method and logs: [ISSUE-0004 § Resolution](../../closed/ISSUE-0004.md#resolution-2026-07-12).
+
+**† Entrypoint-dependent (added 2026-05-19, see [ISSUE-0004](../../closed/ISSUE-0004.md)):** the "yes" verdict on bare MCP rules above is `--print`/sdk-cli only. The interactive TUI path silently drops bare MCP allow rules, surfacing a prompt the matcher should have auto-approved. Verified on claude.exe 2.1.144. Workaround: `app-src/py-helpers/mcp-allow-guard.py` re-applies MCP allow rules in TUI mode via a `PreToolUse` hook. The original 2026-05-16 testing for this table was done entirely in `--print` mode, which is why this divergence wasn't caught in the initial run; bare `Edit`/`Read`/`Write`/`Bash` rules were observed working in both modes during the 2026-05-19 follow-up, so the entrypoint fork appears MCP-specific or at least narrower than tool-class-wide. See [ISSUE-0004](../../closed/ISSUE-0004.md) for the full reproducer.
 
 ---
 

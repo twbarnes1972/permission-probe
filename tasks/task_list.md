@@ -20,6 +20,7 @@
 | Task ID | Subject | Created | Closed | Priority |
 |---------|---------|---------|--------|----------|
 | [ISSUE-0001](closed/ISSUE-0001.md) | Path-globbed Edit/Read/Write rules and `bypassPermissions` setting silently ignored by Claude Code matcher | 2026-05-16 | 2026-05-18 | High |
+| [ISSUE-0004](closed/ISSUE-0004.md) | TUI silently ignores MCP allow rules that `--print`/sdk-cli honors — fixed upstream, verified on 2.1.207 | 2026-05-19 | 2026-07-12 | High |
 
 
-<!-- version: v2026.05.18.07 -->
+<!-- version: v2026.07.12.01 -->

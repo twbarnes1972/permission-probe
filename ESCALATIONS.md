@@ -6,6 +6,12 @@ Non-blocking agent-to-human feedback queue. Agents write here during autonomous 
 
 ## Pending
 
+### [2026-07-12] Obsolete hooks still wired in live `~/.claude/settings.json` — removal approved but not applied
+Both PreToolUse hooks (`file-deny-guard.py`, `mcp-allow-guard.py`) are obsolete as of claude.exe 2.1.207 (see [ISSUE-0004 § Resolution](tasks/closed/ISSUE-0004.md#resolution-2026-07-12)); native path-globbed deny rules and MCP allow rules now work. The maintainer approved retiring both, but the settings.json edit was interrupted mid-session and never applied — the hooks are still live and harmless. **Action:** remove the two `hooks.PreToolUse` entries (or ask the agent to), then restart Claude once. The native `Read/Edit/Write(C:/Data/.../sd/**)` deny rules already in `permissions.deny` take over from `file-deny-guard.py`; verify with one denied-path Read after restart. Until removed, the move/rename hazard in the `project-live-hook-dependency` memory still applies.
+
+### [2026-07-12] Workstation-specific paths are already published at HEAD (public repo)
+`git grep` at HEAD finds `C:\Users\tbarnes\...` memory paths and the `twb-z13` sibling-project name in committed `SESSION.md` and `INSTRUCTIONS.md` — the same class of workstation detail the ISSUE-0001 pre-publication scrub deliberately removed from `probe.js` and the upstream drafts. Exposure is mild (username is guessable from the GitHub handle; only the *name* of the protected sibling project leaks, not contents), and these were pushed in prior sessions, so history rewrite is a cost/benefit call for the maintainer, not something done unilaterally. This session's new/rewritten content avoids absolute workstation paths going forward. **Decide:** (a) accept and just keep future content clean (cheapest, recommended), (b) scrub the current files in a normal commit (history still shows old versions), or (c) rewrite history + force-push (breaks clones; probably overkill).
+
 ## Resolved
 
 ### [2026-05-18] FEAT-0001: Cadence pacing — manual now, `/schedule` after 1 month validation

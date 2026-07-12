@@ -66,6 +66,10 @@ Adjacent: [FEAT-0002](FEAT-0002.md) — the verification suite spec under [verif
 - If the probe suite is built first (INF-0003), use `probe-bare-edit.js` directly. Otherwise this task implements the minimum viable test inline.
 - Output: a writeup in `tasks/working_artifacts/ISSUE-0003/INVESTIGATION.md` analogous to ISSUE-0001's, scoped to this question only.
 
+## Status Notes
+
+- **2026-07-12 — largely answered by the ISSUE-0004 resolution retest.** On claude.exe **2.1.207**, sandboxed (`CLAUDE_CONFIG_DIR`, no hooks): bare `Read`/`Edit` allow rules auto-approved without prompts in both `--print` and ConPTY-driven interactive TUI (Read: `permissionDecisionMs=8`, dispatched `outcome=ok`; Edit auto-dispatched and blocked only where a deny rule matched). So bare allows work *now* — and hypothesis #4's "different code path" pattern was real but is also fixed (see [ISSUE-0004 § Resolution](../closed/ISSUE-0004.md#resolution-2026-07-12)). Upstream #55255 was **closed as "not planned" / stale** with no maintainer comment, weakening the case for further investment. Remaining before closing: decide whether the registry/root-causes bookkeeping (RC-EDIT-PROMPT-2126 → `closed-not-reproduced` on current builds) is enough, or whether the version range 2.1.126–2.1.143 deserves a look for a transient regression. Recommendation: close as not-reproduced-on-current; the fix wave that resolved ISSUE-0001/0004 makes historical bisection low-value.
+
 ## Related
 
 - [ISSUE-0001](../closed/ISSUE-0001.md) — methodology + RC-XIQ-MATCHER + RC-BYPASS-GATE.

@@ -23,6 +23,14 @@ _(Agent-originated feedback about how sessions or collaboration felt. Non-blocki
 
 When INSTRUCTIONS.md item shape is "clear default + 2-3 well-defined alternatives," asking via `AskUserQuestion` with a flagged Recommended option in first position worked well today — all three intake decisions resolved in a single round of taps. Pattern worth keeping for similar intake situations: surface the decision but make the path-of-least-resistance the right one.
 
+### [2026-07-12] "Is there not a way you can script that?" — challenge the manual-step assumption
+
+I had declared the interactive-TUI half of the retest "needs one manual step from you." The maintainer's one-line pushback ("is there not a way you can script with python or powershell to run?") produced the ConPTY driver — which not only removed the manual step but became a permanent, reusable capability ([tasks/working_artifacts/ISSUE-0004/](tasks/working_artifacts/ISSUE-0004/README.md)). Lesson for future sessions: before handing a step to the human, spend two minutes asking whether the "inherently interactive" framing is actually true. Pseudo-terminals, HTTP APIs behind UIs, and headless modes exist for most "interactive-only" surfaces.
+
+### [2026-05-19] Scope-setter messages with explicit precedent + autonomy + escalate-permission worked unusually well
+
+The maintainer's redirect mid-session — "your goal is to fix the issue. you did this before temporarily, via [INVESTIGATION.md]. so, instrument whatever you need to autonmous work to fix this problem. if you need to escalate anything, do so." — was a near-optimal scope-setter. It (1) named the deliverable, (2) pointed at a precedent that defined "good," (3) authorized autonomous execution, and (4) explicitly invited escalation. Cut the hedging way down: I only paused once (for the security-boundary settings.json edit), and that pause was specifically what CLAUDE.md mandates. Worth reinforcing as a pattern for similar redirects.
+
 ---
 
 ## From Human
