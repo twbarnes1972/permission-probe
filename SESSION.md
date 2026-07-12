@@ -23,13 +23,11 @@ Fix version unknown — landed silently in 2.1.145–2.1.207; #36884 and #55255 
 ## First order of business next session
 
 1. **ESCALATIONS.md has two pending items** (obsolete hooks still wired in live settings.json — removal approved but interrupted; workstation paths already public at HEAD). Walk them with the maintainer.
-2. **ISSUE-0003** is one decision from closing — see its 2026-07-12 status note (recommendation: close as not-reproduced-on-current; bare allows verified working at both entrypoints).
-3. **GTSK-0002 (VDP submission) needs re-scoping**: both root causes it was going to submit are now fixed. Options: submit anyway as historical/fixed (low value), convert to a retrospective writeup (feeds FEAT-0002's opportunistic-blog policy), or close as overtaken by events. Maintainer call.
-4. The upstream resolution notes for #57132/#15921 are **owned by the open-source-contributing repo** (its ISSUE-0002) — this session filed the verification report into that repo's INSTRUCTIONS.md intake. Nothing owed from this repo; don't duplicate.
+2. **GTSK-0002 (VDP submission) needs re-scoping**: both root causes it was going to submit are now fixed. Options: submit anyway as historical/fixed (low value), convert to a retrospective writeup (feeds FEAT-0002's opportunistic-blog policy), or close as overtaken by events. Maintainer call.
+3. The upstream resolution notes for #57132/#15921 are **owned by the open-source-contributing repo** (its ISSUE-0002) — this session filed the verification report into that repo's INSTRUCTIONS.md intake. Nothing owed from this repo; don't duplicate.
 
 ## In-Flight Tasks
 
-- **[ISSUE-0003](tasks/open/ISSUE-0003.md)** (High) — disambiguate RC-EDIT-PROMPT-2126. Practically answered by this session's retest (see status note in the task); needs only the closure bookkeeping (root-causes.md, registry.md) and the close decision.
 - **[ISSUE-0002](tasks/open/ISSUE-0002.md)** (Medium, security-sensitive) — cd-prefix Bash deny bypass (#59498). Untouched this session; unaffected by the fix wave (Bash content matching was never broken). If reproduced, route through the FEAT-0003 disclosure pipeline.
 - **[GTSK-0002](tasks/open/GTSK-0002.md)** (Medium) — VDP submission. **Needs re-scope, see above.**
 - **[FEAT-0004](tasks/open/FEAT-0004.md)** / **[DOC-0001](tasks/open/DOC-0001.md)** / **[GTSK-0003](tasks/open/GTSK-0003.md)** — planning/doc/research tasks, untouched this session. FEAT-0004's "expand beyond Claude Code" thesis got *stronger* now that this repo's core mission is complete.
@@ -42,7 +40,7 @@ Fix version unknown — landed silently in 2.1.145–2.1.207; #36884 and #55255 
 
 **Maintainer reminder carried over:** off-workstation backup of `permission-probe-research/` is the maintainer's responsibility (no cloud sync). Set up encrypted external/cloud backup before doing real security work in that folder.
 
-**Repo state at session end:** this session committed the combined 2026-05-19 + 2026-07-12 work locally (previous session's ISSUE-0004 workaround chunk was deliberately held uncommitted pending verification — that verification is what this session did). **Not pushed** per SESSIONLOOP.md push-gating; the deprecation announcement is a natural push candidate once the maintainer approves.
+**Repo state at session end:** the deprecation milestone (commit `8165095`, bundling the held-back 2026-05-19 workaround chunk with the 2026-07-12 verification) was committed and **pushed with per-push maintainer approval** per SESSIONLOOP.md. A follow-up commit closes ISSUE-0003 (exact-reproducer confirmation + registry/root-causes bookkeeping).
 
 ## Recent Sessions
 
@@ -50,7 +48,8 @@ Fix version unknown — landed silently in 2.1.145–2.1.207; #36884 and #55255 
 
 - Re-ran the full reproducer matrix against claude.exe 2.1.207 in an isolated `CLAUDE_CONFIG_DIR` sandbox: ISSUE-0001 (both findings) and ISSUE-0004 all fixed. Negative controls held; auto-mode confirmed inactive in all runs. Static check: the `XIq` reject filter survives in the binary (as `pto`) but is bypassed by a new content-matching path.
 - **New capability:** programmatic interactive-TUI testing via ConPTY (`pywinpty`) — spawned real `entrypoint=cli` sessions, typed prompts, watched for permission dialogs vs success markers. Also built a dependency-free stub MCP stdio server so MCP permission rules can be tested without credentials. Both preserved with a sandbox recipe in [tasks/working_artifacts/ISSUE-0004/](tasks/working_artifacts/ISSUE-0004/README.md).
-- **Docs:** ISSUE-0004 closed with full resolution section and moved to `tasks/closed/`; README deprecation banner + Status rewrite; INVESTIGATION.md compatibility table annotated as historical (≤2.1.144); task_list updated; ISSUE-0003 status note added.
+- **Docs:** ISSUE-0004 closed with full resolution section and moved to `tasks/closed/`; README deprecation banner + Status rewrite; INVESTIGATION.md compatibility table annotated as historical (≤2.1.144); task_list updated.
+- **ISSUE-0003 closed** (post-close-out addendum, same day): ran the exact reproducer — bare `Edit` as the only allow rule, file under cwd, 2.1.207 — Edit auto-approved (`permissionDecisionMs=2`, no prompt). Closed not-reproduced-on-current; RC-EDIT-PROMPT-2126 → closed in root-causes.md; registry.md #55255 row updated (upstream stale-closed; confidence H). No upstream comment owed (#55255 dead, behavior gone).
 - **Hand-off:** verification report filed into `open-source-contributing`'s INSTRUCTIONS.md intake (its ISSUE-0002 was explicitly waiting on it — it owns the upstream resolution notes on #57132/#15921, with a scope caution: our verification covers the native CLI only, not the VS Code extension half of #15921).
 - **Not done:** live settings.json hook removal (approved, then the edit was interrupted — escalated); upstream posts (other repo's deliverable).
 

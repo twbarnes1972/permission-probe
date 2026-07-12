@@ -87,10 +87,16 @@ Either let `defaultMode: bypassPermissions` in settings flip `isBypassPermission
 
 ## RC-EDIT-PROMPT-2126
 
-**Status:** Provisional — needs verification.
+**Status:** Closed — not reproduced on current (2026-07-12, claude.exe 2.1.207).
 **Proposed on:** 2026-05-18 from FEAT-0001 research pass.
 **Suspected affected versions:** 2.1.126+ (per upstream #55255).
-**Severity:** TBD (depends on whether it's a regression of the bare-allow path or something else).
+**Severity:** n/a (not reproduced).
+
+### Verification (2026-07-12)
+
+Exact reproducer run on **2.1.207** in an isolated `CLAUDE_CONFIG_DIR` sandbox (no hooks): `permissions.allow: ["Edit"]` bare as the *only* rule, target file under cwd, `--print --debug "permission,tool" --permission-mode default`. Result: Edit auto-approved — `tool_dispatch_start tool=Edit permissionDecisionMs=2`, `outcome=ok`, no prompt, file modified. Bare allows were also observed auto-approving in ConPTY-driven **interactive TUI** sessions during the ISSUE-0004 resolution retest, so the verdict covers both entrypoints.
+
+Of the four hypotheses below, #4 ("different code path") was *real but for MCP tools, not Edit* — confirmed and then fixed upstream (see permission-probe ISSUE-0004). The most likely explanation for #55255 remains #3/#4: the reporter was on a session configuration (possibly TUI-side, possibly the VS Code extension layer) that the 2.1.145–2.1.207 fix wave has since repaired. #55255 itself was stale-closed "not planned" with no maintainer comment; no upstream comment owed. Historical bisection of 2.1.126–2.1.143 judged low-value now that the fix wave has landed.
 
 ### Summary
 

@@ -96,7 +96,7 @@ Takes effect on next Claude restart (hook registration requires restart per [CLA
 
 ## Relation to ISSUE-0003
 
-[ISSUE-0003](../open/ISSUE-0003.md) tracks upstream [#55255](https://github.com/anthropics/claude-code/issues/55255), which reports that bare `Edit` allow no longer suppresses Edit prompts in 2.1.126+. Hypothesis #4 there was "Different code path — bare allow works in some session configurations and not others." **This investigation confirms that pattern exists in 2.1.144 for MCP tools.** The same TUI-vs-subprocess divergence may explain #55255 if the reporter was on TUI and the team's testing was on `--print`. ISSUE-0003 should re-test bare `Edit` allow specifically in TUI mode to determine whether the same fork affects file-pattern tools.
+[ISSUE-0003](ISSUE-0003.md) tracks upstream [#55255](https://github.com/anthropics/claude-code/issues/55255), which reports that bare `Edit` allow no longer suppresses Edit prompts in 2.1.126+. Hypothesis #4 there was "Different code path — bare allow works in some session configurations and not others." **This investigation confirms that pattern exists in 2.1.144 for MCP tools.** The same TUI-vs-subprocess divergence may explain #55255 if the reporter was on TUI and the team's testing was on `--print`. ISSUE-0003 should re-test bare `Edit` allow specifically in TUI mode to determine whether the same fork affects file-pattern tools.
 
 In this session, bare `Read`/`Edit`/`Write`/`Bash` allow rules were observed working in TUI mode without prompts. So if the bug DOES affect Edit, it's gated on something more specific than tool-class.
 
@@ -104,7 +104,7 @@ In this session, bare `Read`/`Edit`/`Write`/`Bash` allow rules were observed wor
 
 | Blocked By | None |
 
-Adjacent: [ISSUE-0003](../open/ISSUE-0003.md) — re-test bare `Edit` allow in TUI specifically; this finding suggests the right reproducer to use.
+Adjacent: [ISSUE-0003](ISSUE-0003.md) — re-test bare `Edit` allow in TUI specifically; this finding suggests the right reproducer to use.
 
 ## Acceptance Criteria
 
@@ -126,7 +126,7 @@ Adjacent: [ISSUE-0003](../open/ISSUE-0003.md) — re-test bare `Edit` allow in T
 
 - [ISSUE-0001](ISSUE-0001.md) — methodology source; same `XIq` matcher bug pattern, different fork in the binary.
 - [INVESTIGATION.md](../working_artifacts/ISSUE-0001/INVESTIGATION.md) — disassembly methodology used here.
-- [ISSUE-0003](../open/ISSUE-0003.md) — may be partially explained by this finding if #55255's reporter was on TUI.
+- [ISSUE-0003](ISSUE-0003.md) — may be partially explained by this finding if #55255's reporter was on TUI.
 - `app-src/py-helpers/file-deny-guard.py` — sibling hook; same contract and conventions.
 
 <!-- version: v2026.07.12.01 -->
