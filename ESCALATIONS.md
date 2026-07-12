@@ -6,10 +6,10 @@ Non-blocking agent-to-human feedback queue. Agents write here during autonomous 
 
 ## Pending
 
-### [2026-07-12] Workstation-specific paths are already published at HEAD (public repo)
-`git grep` at HEAD finds `C:\Users\tbarnes\...` memory paths and the `twb-z13` sibling-project name in committed `SESSION.md` and `INSTRUCTIONS.md` — the same class of workstation detail the ISSUE-0001 pre-publication scrub deliberately removed from `probe.js` and the upstream drafts. Exposure is mild (username is guessable from the GitHub handle; only the *name* of the protected sibling project leaks, not contents), and these were pushed in prior sessions, so history rewrite is a cost/benefit call for the maintainer, not something done unilaterally. This session's new/rewritten content avoids absolute workstation paths going forward. **Decide:** (a) accept and just keep future content clean (cheapest, recommended), (b) scrub the current files in a normal commit (history still shows old versions), or (c) rewrite history + force-push (breaks clones; probably overkill).
-
 ## Resolved
+
+### [2026-07-12] Workstation-specific paths are already published at HEAD (public repo)
+**Resolution (2026-07-12, same session):** Maintainer chose option (a) — accept the existing exposure (username guessable from the GitHub handle; only the sibling project's *name* leaked, not contents) and keep future content clean. No scrub commit, no history rewrite. Standing convention from this decision: **session docs (SESSION.md, INSTRUCTIONS.md, task files) reference memory files by name and sibling projects generically — no absolute workstation paths in committed content.** The scrub lens that already applied to code/upstream drafts now explicitly covers working documents too.
 
 ### [2026-07-12] Obsolete hooks still wired in live `~/.claude/settings.json` — removal approved but not applied
 **Resolution (2026-07-12, same session):** Maintainer gave the explicit go-ahead; both `hooks.PreToolUse` entries removed from `~/.claude/settings.json` (JSON validated post-edit; the 43 allow / 58 deny rules untouched). Takes effect on next Claude restart. Residual verification for the maintainer: after restarting, try one Read under the path-globbed `permissions.deny` rules to confirm the native deny (now working per [ISSUE-0004 § Resolution](tasks/closed/ISSUE-0004.md#resolution-2026-07-12)) covers what `file-deny-guard.py` used to. The hook scripts stay in the repo as reference implementations for pre-2.1.207 users.

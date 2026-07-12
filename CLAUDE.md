@@ -4,9 +4,15 @@ You're reading this because a Claude Code (or similar) session has cwd set to th
 
 ## What this repo is in one paragraph
 
-`permission-probe` is a **workaround tool** for a Claude Code bug: path-globbed `Edit(...)`, `Read(...)`, `Write(...)` rules in `~/.claude/settings.json` are silently ignored by the permission matcher. Only bare `Edit` / `Read` / `Write` rules work. Two artifacts, split by language under [`app-src/`](app-src/): `py-helpers/file-deny-guard.py` (a `PreToolUse` hook that re-implements path-based denies) and `js-probes/probe.js` (a diagnostic that proves the bug is not in picomatch). Full root-cause analysis is in the README and the upstream comment drafts under `tasks/working_artifacts/ISSUE-0001/upstream-comments/`. This tool becomes obsolete when upstream lands a matcher fix.
+`permission-probe` is a **workaround tool** for a Claude Code bug: path-globbed `Edit(...)`, `Read(...)`, `Write(...)` rules in `~/.claude/settings.json` are silently ignored by the permission matcher. Only bare `Edit` / `Read` / `Write` rules work. Two artifacts, split by language under [`app-src/`](app-src/): `py-helpers/file-deny-guard.py` (a `PreToolUse` hook that re-implements path-based denies) and `js-probes/probe.js` (a diagnostic that proves the bug is not in picomatch). Full root-cause analysis is in the README and the upstream comment drafts under `tasks/working_artifacts/ISSUE-0001/upstream-comments/`.
+
+**⚠️ That fix has landed: the repo is DEPRECATED as of Claude Code 2.1.207 (verified 2026-07-12; see the README banner and `tasks/closed/ISSUE-0004.md` § Resolution).** The maintenance guidance below still applies — the hooks stay published as reference implementations for users on older versions — but the repo is in wind-down mode: no new workaround features; keep docs accurate; the reusable TUI test harness lives in `tasks/working_artifacts/ISSUE-0004/`. The maintainer's own settings.json no longer wires either hook.
 
 ## Maintenance guidance — when working on this repo
+
+### No workstation paths in committed content (public repo)
+
+Reference memory files by name, sibling projects generically, and user directories abstractly (`~/.claude/...`) — never absolute `C:\Users\<name>\...` or sibling-project paths. This applies to *working documents too* (SESSION.md, INSTRUCTIONS.md, task files), not just code and upstream drafts — that's exactly where past leaks slipped through (decision recorded in ESCALATIONS.md, 2026-07-12).
 
 ### The hook contract — don't break it
 
