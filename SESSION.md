@@ -22,9 +22,9 @@ Fix version unknown — landed silently in 2.1.145–2.1.207; #36884 and #55255 
 
 ## First order of business next session
 
-1. **ESCALATIONS.md has two pending items** (obsolete hooks still wired in live settings.json — removal approved but interrupted; workstation paths already public at HEAD). Walk them with the maintainer.
-2. **GTSK-0002 (VDP submission) needs re-scoping**: both root causes it was going to submit are now fixed. Options: submit anyway as historical/fixed (low value), convert to a retrospective writeup (feeds FEAT-0002's opportunistic-blog policy), or close as overtaken by events. Maintainer call.
-3. The upstream resolution notes for #57132/#15921 are **owned by the open-source-contributing repo** (its ISSUE-0002) — this session filed the verification report into that repo's INSTRUCTIONS.md intake. Nothing owed from this repo; don't duplicate.
+1. **GTSK-0002 (VDP submission) needs re-scoping**: both root causes it was going to submit are now fixed. Options: submit anyway as historical/fixed (low value), convert to a retrospective writeup (feeds FEAT-0002's opportunistic-blog policy), or close as overtaken by events. Maintainer call.
+2. The upstream resolution notes for #57132/#15921 are **owned by the open-source-contributing repo** (its ISSUE-0002) — this session filed the verification report into that repo's INSTRUCTIONS.md intake. Nothing owed from this repo; don't duplicate.
+3. **One residual verification** (from the resolved hook-removal escalation): in the first post-restart session, try one Read under the path-globbed `permissions.deny` rules and confirm the native deny fires now that the hooks are gone.
 
 ## In-Flight Tasks
 
@@ -35,8 +35,7 @@ Fix version unknown — landed silently in 2.1.145–2.1.207; #36884 and #55255 
 
 ## Open Questions
 
-- The two ESCALATIONS.md pending items (hook removal; published workstation paths).
-- GTSK-0002 disposition (see above).
+- GTSK-0002 disposition (see above). Both 2026-07-12 escalations were resolved same-session (hooks removed from live settings.json; workstation-paths exposure accepted as option (a), with a new no-workstation-paths convention added to CLAUDE.md).
 
 **Maintainer reminder carried over:** off-workstation backup of `permission-probe-research/` is the maintainer's responsibility (no cloud sync). Set up encrypted external/cloud backup before doing real security work in that folder.
 
